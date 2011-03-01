@@ -16,6 +16,17 @@ module BankScraper
     end
   end
 
+  class TarjetaDeCredito
+    attr_accessor :ultimos_digitos
+    def initialize(ultimos_digitos)
+      @ultimos_digitos = ultimos_digitos
+    end
+
+    def ==(other)
+      ultimos_digitos == other.ultimos_digitos
+    end
+  end
+
   module TBanc
     class Sesion
       def initialize(rut, password)
@@ -39,10 +50,19 @@ module BankScraper
 
       def cuentas_corrientes
         page = login
-        page.forms.first.field_with(:name => /selectedAccountNr/).options.map do |option|
+        page.forms[0].field_with(:name => /selectedAccountNr/).options.map do |option|
           BankScraper::CuentaCorriente.new(option.text.strip)
         end
       end
+
+      def tarjetas_de_credito
+        page = login
+        page.forms[2].field_with(:name => /selectedAccountNr/).options.map do |option|
+          BankScraper::TarjetaDeCredito.new(option.text.strip[-4..-1])
+        end
+      end
+
+
     end
   end
 end

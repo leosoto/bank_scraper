@@ -32,4 +32,14 @@ describe BankScraper::TBanc::Sesion do
       subject.cuentas_corrientes.should include(account)
     end
   end
+
+  describe "tarjetas_de_credito" do
+    let(:card) do
+      BankScraper::TarjetaDeCredito.new(CREDENTIALS["tbanc"]["tarjeta_credito"].value)
+    end
+
+    it "inclues the credit card of the logged in person" do
+      subject.tarjetas_de_credito.should include(card)
+    end
+  end
 end
