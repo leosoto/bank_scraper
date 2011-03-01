@@ -3,3 +3,4 @@ pkg/*
 .bundle
 spec/credentials.yaml
 .redcar/
+spec/fixtures/ephemeral_response
