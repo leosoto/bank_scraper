@@ -17,6 +17,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency "bundler", ">= 1.0.0"
   s.add_development_dependency "rspec", ">= 2.4.0"
   s.add_development_dependency "ephemeral_response", ">= 0.4.0"
+  s.add_development_dependency "watchr", ">= 0.7.0"
+
   s.add_runtime_dependency "mechanize", ">= 1.0.0"
 
   s.files        = `git ls-files`.split("\n")
