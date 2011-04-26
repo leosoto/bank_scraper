@@ -24,13 +24,26 @@ describe BankScraper::TBanc::Sesion do
   end
 
   describe "#cuentas_corrientes" do
-    let(:account) do
+    let(:account_number) do
       BankScraper::CuentaCorriente.new(CREDENTIALS["tbanc"]["cuenta"].value)
     end
 
     it "includes the account of the logged in person" do
-      subject.cuentas_corrientes.should include(account)
+      subject.cuentas_corrientes.should include(account_number)
     end
+
+    context "for such account" do
+      let(:cuenta_corriente) do
+        subject.cuentas_corrientes.detect {|c| c.numero == account_number }
+      end
+
+      pending "has the available funds" do
+        cuenta_corriente.saldo_disponible.should_not be_nil
+        cuenta_corriente.saldo_contable.should_not be_nil
+        cuenta_corriente.sobregiro_disponible.should_not be_nil
+      end
+    end
+
   end
 
   describe "tarjetas_de_credito" do
